@@ -8,6 +8,13 @@ import {
 } from "./lib/constant";
 
 export function proxy(request) {
+    if (request.method === "OPTIONS") {
+    return new NextResponse(null, {
+      status: 204,
+      headers: corsHeaders,
+    });
+  }
+
   const user = verifyJWT(request);
 
   if (!user) {
@@ -35,5 +42,8 @@ export function proxy(request) {
 }
 
 export const config = {
-  matcher: [],
+  matcher: [
+    "/api/course/:path*",
+    "/api/user/:path*",
+  ],
 };

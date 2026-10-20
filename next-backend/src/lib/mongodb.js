@@ -1,6 +1,11 @@
 // src/lib/mongodb.js
 
 import { MongoClient } from "mongodb";
+import dns from "node:dns";
+
+if (process.env.NODE_ENV === "development") {
+  dns.setServers(["1.1.1.1"]);
+}
 
 const options = {};
 let globalClientPromise;
